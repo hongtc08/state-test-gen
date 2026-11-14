@@ -105,6 +105,7 @@ class Environment:
   - *Thu nạp Test Suite*: Bất kỳ episode nào từ `reset()` đến `done=True` mà đóng góp ít nhất 1 transition mới hoặc 1 transition-pair mới đều được `Environment` tự động lưu vào `test_suite`.
 - **`coverage() -> dict[str, float]`**: Trả về `{"state_coverage": float, "transition_coverage": float, "transition_pair_coverage": float}` theo thang `0.0`–`100.0`.
 - **`get_test_suite() -> list[list[str]]`**: Trả về danh sách các test case đã thu thập.
+- **`get_convergence_history() -> list[dict[str, float | int]]`**: Trả về lịch sử hội tụ độ bao phủ được ghi nhận mỗi `log_interval` bước (mặc định `50`) và tại bước chạm `budget`.
 
 ### 4.3. Giao diện `SUT` (`src/sut.py`) & Quy ước `"INVALID"`
 - `SUT(model_or_path).execute(events: list[str]) -> list[str]`:
@@ -120,3 +121,15 @@ class Environment:
    ```csv
    system,algo,seed,budget,final_state_cov,final_trans_cov,final_pair_cov,steps_to_max_cov,suite_size,mutation_score,runtime_sec
    ```
+
+### 4.5. Mô hình & Công cụ đã hoàn thành của N1
+- **`models/login.json`**: Mô hình Deterministic FSM hệ thống Đăng nhập nâng cao gồm 11 trạng thái và 27 transitions (nhánh sâu 6–7 bước, nhánh bẫy khóa `Locked`, nhánh bẫy reset `cancel`/`timeout`/`SessionExpired`).
+- **`scripts/dot_to_json.py`**: Công cụ CLI chuyển đổi file `.dot` (Mealy Machine / DFA từ Automata Wiki) sang JSON chuẩn:
+  ```bash
+  # Chuyển đổi 1 file cụ thể
+  python scripts/dot_to_json.py --input raw_dot/example.dot --output models/example.json --name example
+
+  # Chuyển đổi hàng loạt toàn bộ raw_dot/*.dot -> models/*.json và in bảng thống kê
+  python scripts/dot_to_json.py
+  ```
+- **`tests/test_env.py`**: Bộ kiểm thử `pytest` gồm 5 kịch bản kiểm tra `coverage()`, cơ chế trả thưởng, giới hạn `budget`, thu thập `get_test_suite()` và tích hợp Random Walk 200 bước trên `models/login.json`.
