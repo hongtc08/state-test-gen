@@ -19,9 +19,16 @@ START_EDGE_PATTERN = re.compile(
     r'^\s*__start0\s*->\s*(?:"([^"]+)"|([A-Za-z0-9_.\-]+))\s*(?:\[[^\]]*\])?\s*;?\s*$'
 )
 TRANSITION_EDGE_PATTERN = re.compile(
-    r'^\s*(?:"([^"]+)"|([A-Za-z0-9_.\-]+))\s*->\s*(?:"([^"]+)"|([A-Za-z0-9_.\-]+))\s*\[(.*?)\]\s*;?\s*$'
+    r'^\s*(?:"([^"]+)"|([A-Za-z0-9_.\-]+))\s*->\s*(?:"([^"]+)"|([A-Za-z0-9_.\-]+))\s*\[(.*)\]\s*;?\s*$'
 )
-LABEL_ATTR_PATTERN = re.compile(r'label\s*=\s*"((?:\\.|[^"\\])*)"')
+LABEL_QUOTED_PATTERN = re.compile(r'label\s*=\s*"((?:\\.|[^"\\])*)"')
+LABEL_HTML_PATTERN = re.compile(r'label\s*=\s*<(.+)>\s*(?:,|\s|$)')
+HTML_TAG_PATTERN = re.compile(r"<[^>]+>")
+
+
+def _natural_sort_key(text: str) -> list[int | str]:
+    """Tạo khóa sắp xếp tự nhiên để s0, s1, s2, ..., s10 đúng thứ tự số học."""
+    return [int(part) if part.isdigit() else part.lower() for part in re.split(r"(\d+)", text)]
 
 
 def _unquote(quoted: str | None, plain: str | None) -> str:
@@ -83,11 +90,16 @@ def parse_dot_file(dot_path: Path, model_name: str | None = None) -> tuple[dict[
                     initial_state = dst
                 continue
 
-            label_match = LABEL_ATTR_PATTERN.search(attrs)
-            if not label_match:
-                continue
+            label_match = LABEL_QUOTED_PATTERN.search(attrs)
+            if label_match:
+                raw_label = label_match.group(1)
+            else:
+                html_match = LABEL_HTML_PATTERN.search(attrs)
+                if not html_match:
+                    continue
+                raw_label = HTML_TAG_PATTERN.sub("", html_match.group(1))
 
-            event = _extract_event(label_match.group(1))
+            event = _extract_event(raw_label)
             if not event:
                 continue
 
@@ -122,7 +134,7 @@ def parse_dot_file(dot_path: Path, model_name: str | None = None) -> tuple[dict[
     if not discovered_states:
         raise ValueError(f"Không tìm thấy trạng thái hoặc chuyển tiếp hợp lệ trong tệp: {dot_path}")
 
-    sorted_states = sorted(discovered_states)
+    sorted_states = sorted(discovered_states, key=_natural_sort_key)
     if initial_state is None:
         initial_state = sorted_states[0]
 
