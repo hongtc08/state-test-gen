@@ -21,12 +21,17 @@ state-test-gen/
 │   ├── sut.py              # [N4] Hệ thống thử nghiệm (SUT) chạy máy trạng thái & mutant
 │   ├── mutation.py         # [N4] Sinh mutant (4 toán tử) và tính mutation score
 │   └── run.py              # [N4] Runner chạy thực nghiệm 30 seeds, xuất CSV
-├── models/                 # [N1] Các mô hình máy trạng thái JSON (login_mini.json, login.json, cart.json, atm.json)
+├── models/                 # [N1] Các mô hình máy trạng thái JSON (login_mini, login, coffeemachine, ActiveMQ, TCP_Linux_Server)
+├── raw_dot/                # [N1] File nguồn Graphviz (.dot) tải từ Automata Wiki
+├── scripts/                # [N1] Công cụ tiện ích
+│   └── dot_to_json.py      # [N1] Chuyển đổi .dot (Mealy/DFA) sang JSON chuẩn
 ├── results/                # File CSV kết quả thực nghiệm (convergence.csv, summary.csv)
 ├── analysis/               # [N4] Script phân tích thống kê (Mann-Whitney U) và vẽ biểu đồ
 │   └── stats_demo.py       # [N4] Minh họa kiểm định thống kê 30 seeds & Mann-Whitney U
 ├── paper/                  # Bản thảo bài báo, bảng thuật ngữ (glossary.md), trích dẫn (references.bib)
 └── tests/                  # Kiểm thử tự động với pytest / unittest
+    ├── test_env.py         # [N1] Kiểm thử Environment & mô hình login.json
+    └── test_smoke.py       # [N4] Smoke test SUT & Mutation
 ```
 
 ---
@@ -89,12 +94,13 @@ python -m unittest discover -s tests -p "test_*.py" -v
 ### 4.2. Giao diện lớp `Environment` (`src/env.py`)
 ```python
 class Environment:
-    def __init__(self, json_path: str, budget: int = 3000, max_steps_per_ep: int = 20): ...
+    def __init__(self, json_path: str, budget: int = 3000, max_steps_per_ep: int = 20, log_interval: int = 50): ...
     def reset(self) -> str: ...
     def get_valid_actions(self, state: str | None = None) -> list[str]: ...
     def step(self, action: str) -> tuple[str, float, bool, dict]: ...
     def coverage(self) -> dict[str, float]: ...
     def get_test_suite(self) -> list[list[str]]: ...
+    def get_convergence_history(self) -> list[dict[str, float | int]]: ...
 ```
 - **`reset() -> str`**: Đưa máy về `initial`, bắt đầu một lượt chạy (*episode*) mới, trả về tên trạng thái đầu. **Không tiêu tốn ngân sách `step()`**.
 - **`get_valid_actions(state: str | None = None) -> list[str]`**: Trả về danh sách `event` hợp lệ đi ra từ `state` (mặc định trạng thái hiện tại). Nếu là trạng thái kết thúc, trả về `[]`.
@@ -123,8 +129,17 @@ class Environment:
    ```
 
 ### 4.5. Mô hình & Công cụ đã hoàn thành của N1
-- **`models/login.json`**: Mô hình Deterministic FSM hệ thống Đăng nhập nâng cao gồm 11 trạng thái và 27 transitions (nhánh sâu 6–7 bước, nhánh bẫy khóa `Locked`, nhánh bẫy reset `cancel`/`timeout`/`SessionExpired`).
-- **`scripts/dot_to_json.py`**: Công cụ CLI chuyển đổi file `.dot` (Mealy Machine / DFA từ Automata Wiki) sang JSON chuẩn:
+- **Danh sách các mô hình JSON hiện có trong `models/`:**
+
+  | File mô hình | Nguồn | States | Transitions | Transition-Pairs | Ghi chú |
+  |---|---|---:|---:|---:|---|
+  | `models/login_mini.json` | Tự thiết kế | 6 | 11 | — | Mô hình tối giản dùng cho smoke test |
+  | `models/login.json` | Tự thiết kế | 11 | 27 | 80 | Có nhánh sâu 6–7 bước, bẫy khóa `Locked`, bẫy reset `cancel`/`timeout` |
+  | `models/coffeemachine.json` | `raw_dot/coffeemachine.dot` | 6 | 24 | 96 | Mô hình máy pha cà phê chuẩn |
+  | `models/ActiveMQ__two_client_will_retain.json` | `raw_dot/ActiveMQ__two_client_will_retain.dot` | 18 | 162 | 1.458 | Giao thức MQTT/ActiveMQ (quy mô vừa) |
+  | `models/TCP_Linux_Server.json` | `raw_dot/TCP_Linux_Server.dot` | 57 | 684 | 8.208 | Máy trạng thái TCP Linux Server (quy mô lớn) |
+
+- **`scripts/dot_to_json.py`**: Công cụ CLI chuyển đổi file `.dot` (Mealy Machine / DFA từ Automata Wiki, hỗ trợ cả nhãn chuỗi `"..."` và nhãn bảng HTML `<...>`) sang JSON chuẩn:
   ```bash
   # Chuyển đổi 1 file cụ thể
   python scripts/dot_to_json.py --input raw_dot/example.dot --output models/example.json --name example
