@@ -1,0 +1,50 @@
+{
+  "name": "login",
+  "initial": "Start",
+  "states": [
+    "Start",
+    "EnterUser",
+    "EnterPass",
+    "Fail1",
+    "Fail2",
+    "Locked",
+    "TwoFA",
+    "LoggedIn",
+    "Profile",
+    "ChangePass",
+    "SessionExpired"
+  ],
+  "transitions": [
+    {"from": "Start", "event": "input_user", "to": "EnterUser"},
+    {"from": "EnterUser", "event": "user_ok", "to": "EnterPass"},
+    {"from": "EnterPass", "event": "pass_ok", "to": "TwoFA"},
+    {"from": "TwoFA", "event": "otp_ok", "to": "LoggedIn"},
+    {"from": "LoggedIn", "event": "open_profile", "to": "Profile"},
+    {"from": "Profile", "event": "req_change_pass", "to": "ChangePass"},
+    {"from": "ChangePass", "event": "save_pass", "to": "LoggedIn"},
+
+    {"from": "EnterPass", "event": "pass_bad", "to": "Fail1"},
+    {"from": "Fail1", "event": "pass_bad", "to": "Fail2"},
+    {"from": "Fail2", "event": "pass_bad", "to": "Locked"},
+    {"from": "Fail1", "event": "pass_ok", "to": "TwoFA"},
+    {"from": "Fail2", "event": "pass_ok", "to": "TwoFA"},
+    {"from": "Locked", "event": "admin_unlock", "to": "Start"},
+
+    {"from": "EnterUser", "event": "cancel", "to": "Start"},
+    {"from": "EnterPass", "event": "cancel", "to": "Start"},
+    {"from": "Fail1", "event": "cancel", "to": "Start"},
+    {"from": "Fail2", "event": "cancel", "to": "Start"},
+    {"from": "TwoFA", "event": "cancel", "to": "Start"},
+
+    {"from": "EnterUser", "event": "timeout", "to": "SessionExpired"},
+    {"from": "EnterPass", "event": "timeout", "to": "SessionExpired"},
+    {"from": "Fail1", "event": "timeout", "to": "SessionExpired"},
+    {"from": "Fail2", "event": "timeout", "to": "SessionExpired"},
+    {"from": "TwoFA", "event": "timeout", "to": "SessionExpired"},
+    {"from": "SessionExpired", "event": "reconnect", "to": "Start"},
+
+    {"from": "LoggedIn", "event": "logout", "to": "Start"},
+    {"from": "Profile", "event": "logout", "to": "Start"},
+    {"from": "ChangePass", "event": "logout", "to": "Start"}
+  ]
+}

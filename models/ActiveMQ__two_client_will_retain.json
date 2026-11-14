@@ -1,0 +1,836 @@
+{
+  "name": "ActiveMQ__two_client_will_retain",
+  "initial": "s0",
+  "states": [
+    "s0",
+    "s1",
+    "s2",
+    "s3",
+    "s4",
+    "s5",
+    "s6",
+    "s7",
+    "s8",
+    "s9",
+    "s10",
+    "s11",
+    "s12",
+    "s13",
+    "s14",
+    "s15",
+    "s16",
+    "s17"
+  ],
+  "transitions": [
+    {
+      "from": "s0",
+      "event": "ConnectC2",
+      "to": "s1"
+    },
+    {
+      "from": "s0",
+      "event": "ConnectC1WithWill",
+      "to": "s3"
+    },
+    {
+      "from": "s0",
+      "event": "ConnectC1WithWillRetain",
+      "to": "s8"
+    },
+    {
+      "from": "s0",
+      "event": "DeleteRetainedC1",
+      "to": "s0"
+    },
+    {
+      "from": "s0",
+      "event": "DeleteRetainedC2",
+      "to": "s0"
+    },
+    {
+      "from": "s0",
+      "event": "SubscribeC2",
+      "to": "s0"
+    },
+    {
+      "from": "s0",
+      "event": "UnSubScribeC2",
+      "to": "s0"
+    },
+    {
+      "from": "s0",
+      "event": "DisconnectTCPC1",
+      "to": "s0"
+    },
+    {
+      "from": "s0",
+      "event": "DisconnectC1",
+      "to": "s0"
+    },
+    {
+      "from": "s1",
+      "event": "ConnectC2",
+      "to": "s0"
+    },
+    {
+      "from": "s1",
+      "event": "ConnectC1WithWill",
+      "to": "s2"
+    },
+    {
+      "from": "s1",
+      "event": "ConnectC1WithWillRetain",
+      "to": "s6"
+    },
+    {
+      "from": "s1",
+      "event": "DeleteRetainedC1",
+      "to": "s1"
+    },
+    {
+      "from": "s1",
+      "event": "DeleteRetainedC2",
+      "to": "s1"
+    },
+    {
+      "from": "s1",
+      "event": "SubscribeC2",
+      "to": "s4"
+    },
+    {
+      "from": "s1",
+      "event": "UnSubScribeC2",
+      "to": "s1"
+    },
+    {
+      "from": "s1",
+      "event": "DisconnectTCPC1",
+      "to": "s1"
+    },
+    {
+      "from": "s1",
+      "event": "DisconnectC1",
+      "to": "s1"
+    },
+    {
+      "from": "s2",
+      "event": "ConnectC2",
+      "to": "s3"
+    },
+    {
+      "from": "s2",
+      "event": "ConnectC1WithWill",
+      "to": "s1"
+    },
+    {
+      "from": "s2",
+      "event": "ConnectC1WithWillRetain",
+      "to": "s1"
+    },
+    {
+      "from": "s2",
+      "event": "DeleteRetainedC1",
+      "to": "s2"
+    },
+    {
+      "from": "s2",
+      "event": "DeleteRetainedC2",
+      "to": "s2"
+    },
+    {
+      "from": "s2",
+      "event": "SubscribeC2",
+      "to": "s5"
+    },
+    {
+      "from": "s2",
+      "event": "UnSubScribeC2",
+      "to": "s2"
+    },
+    {
+      "from": "s2",
+      "event": "DisconnectTCPC1",
+      "to": "s1"
+    },
+    {
+      "from": "s2",
+      "event": "DisconnectC1",
+      "to": "s1"
+    },
+    {
+      "from": "s3",
+      "event": "ConnectC2",
+      "to": "s2"
+    },
+    {
+      "from": "s3",
+      "event": "ConnectC1WithWill",
+      "to": "s0"
+    },
+    {
+      "from": "s3",
+      "event": "ConnectC1WithWillRetain",
+      "to": "s0"
+    },
+    {
+      "from": "s3",
+      "event": "DeleteRetainedC1",
+      "to": "s3"
+    },
+    {
+      "from": "s3",
+      "event": "DeleteRetainedC2",
+      "to": "s3"
+    },
+    {
+      "from": "s3",
+      "event": "SubscribeC2",
+      "to": "s3"
+    },
+    {
+      "from": "s3",
+      "event": "UnSubScribeC2",
+      "to": "s3"
+    },
+    {
+      "from": "s3",
+      "event": "DisconnectTCPC1",
+      "to": "s0"
+    },
+    {
+      "from": "s3",
+      "event": "DisconnectC1",
+      "to": "s0"
+    },
+    {
+      "from": "s4",
+      "event": "ConnectC2",
+      "to": "s0"
+    },
+    {
+      "from": "s4",
+      "event": "ConnectC1WithWill",
+      "to": "s5"
+    },
+    {
+      "from": "s4",
+      "event": "ConnectC1WithWillRetain",
+      "to": "s9"
+    },
+    {
+      "from": "s4",
+      "event": "DeleteRetainedC1",
+      "to": "s4"
+    },
+    {
+      "from": "s4",
+      "event": "DeleteRetainedC2",
+      "to": "s4"
+    },
+    {
+      "from": "s4",
+      "event": "SubscribeC2",
+      "to": "s4"
+    },
+    {
+      "from": "s4",
+      "event": "UnSubScribeC2",
+      "to": "s1"
+    },
+    {
+      "from": "s4",
+      "event": "DisconnectTCPC1",
+      "to": "s4"
+    },
+    {
+      "from": "s4",
+      "event": "DisconnectC1",
+      "to": "s4"
+    },
+    {
+      "from": "s5",
+      "event": "ConnectC2",
+      "to": "s3"
+    },
+    {
+      "from": "s5",
+      "event": "ConnectC1WithWill",
+      "to": "s4"
+    },
+    {
+      "from": "s5",
+      "event": "ConnectC1WithWillRetain",
+      "to": "s4"
+    },
+    {
+      "from": "s5",
+      "event": "DeleteRetainedC1",
+      "to": "s5"
+    },
+    {
+      "from": "s5",
+      "event": "DeleteRetainedC2",
+      "to": "s5"
+    },
+    {
+      "from": "s5",
+      "event": "SubscribeC2",
+      "to": "s5"
+    },
+    {
+      "from": "s5",
+      "event": "UnSubScribeC2",
+      "to": "s2"
+    },
+    {
+      "from": "s5",
+      "event": "DisconnectTCPC1",
+      "to": "s4"
+    },
+    {
+      "from": "s5",
+      "event": "DisconnectC1",
+      "to": "s4"
+    },
+    {
+      "from": "s6",
+      "event": "ConnectC2",
+      "to": "s8"
+    },
+    {
+      "from": "s6",
+      "event": "ConnectC1WithWill",
+      "to": "s7"
+    },
+    {
+      "from": "s6",
+      "event": "ConnectC1WithWillRetain",
+      "to": "s7"
+    },
+    {
+      "from": "s6",
+      "event": "DeleteRetainedC1",
+      "to": "s6"
+    },
+    {
+      "from": "s6",
+      "event": "DeleteRetainedC2",
+      "to": "s6"
+    },
+    {
+      "from": "s6",
+      "event": "SubscribeC2",
+      "to": "s9"
+    },
+    {
+      "from": "s6",
+      "event": "UnSubScribeC2",
+      "to": "s6"
+    },
+    {
+      "from": "s6",
+      "event": "DisconnectTCPC1",
+      "to": "s7"
+    },
+    {
+      "from": "s6",
+      "event": "DisconnectC1",
+      "to": "s1"
+    },
+    {
+      "from": "s7",
+      "event": "ConnectC2",
+      "to": "s12"
+    },
+    {
+      "from": "s7",
+      "event": "ConnectC1WithWill",
+      "to": "s11"
+    },
+    {
+      "from": "s7",
+      "event": "ConnectC1WithWillRetain",
+      "to": "s17"
+    },
+    {
+      "from": "s7",
+      "event": "DeleteRetainedC1",
+      "to": "s7"
+    },
+    {
+      "from": "s7",
+      "event": "DeleteRetainedC2",
+      "to": "s1"
+    },
+    {
+      "from": "s7",
+      "event": "SubscribeC2",
+      "to": "s10"
+    },
+    {
+      "from": "s7",
+      "event": "UnSubScribeC2",
+      "to": "s7"
+    },
+    {
+      "from": "s7",
+      "event": "DisconnectTCPC1",
+      "to": "s7"
+    },
+    {
+      "from": "s7",
+      "event": "DisconnectC1",
+      "to": "s7"
+    },
+    {
+      "from": "s8",
+      "event": "ConnectC2",
+      "to": "s6"
+    },
+    {
+      "from": "s8",
+      "event": "ConnectC1WithWill",
+      "to": "s12"
+    },
+    {
+      "from": "s8",
+      "event": "ConnectC1WithWillRetain",
+      "to": "s12"
+    },
+    {
+      "from": "s8",
+      "event": "DeleteRetainedC1",
+      "to": "s8"
+    },
+    {
+      "from": "s8",
+      "event": "DeleteRetainedC2",
+      "to": "s8"
+    },
+    {
+      "from": "s8",
+      "event": "SubscribeC2",
+      "to": "s8"
+    },
+    {
+      "from": "s8",
+      "event": "UnSubScribeC2",
+      "to": "s8"
+    },
+    {
+      "from": "s8",
+      "event": "DisconnectTCPC1",
+      "to": "s12"
+    },
+    {
+      "from": "s8",
+      "event": "DisconnectC1",
+      "to": "s0"
+    },
+    {
+      "from": "s9",
+      "event": "ConnectC2",
+      "to": "s8"
+    },
+    {
+      "from": "s9",
+      "event": "ConnectC1WithWill",
+      "to": "s10"
+    },
+    {
+      "from": "s9",
+      "event": "ConnectC1WithWillRetain",
+      "to": "s10"
+    },
+    {
+      "from": "s9",
+      "event": "DeleteRetainedC1",
+      "to": "s9"
+    },
+    {
+      "from": "s9",
+      "event": "DeleteRetainedC2",
+      "to": "s9"
+    },
+    {
+      "from": "s9",
+      "event": "SubscribeC2",
+      "to": "s9"
+    },
+    {
+      "from": "s9",
+      "event": "UnSubScribeC2",
+      "to": "s6"
+    },
+    {
+      "from": "s9",
+      "event": "DisconnectTCPC1",
+      "to": "s10"
+    },
+    {
+      "from": "s9",
+      "event": "DisconnectC1",
+      "to": "s4"
+    },
+    {
+      "from": "s10",
+      "event": "ConnectC2",
+      "to": "s12"
+    },
+    {
+      "from": "s10",
+      "event": "ConnectC1WithWill",
+      "to": "s13"
+    },
+    {
+      "from": "s10",
+      "event": "ConnectC1WithWillRetain",
+      "to": "s15"
+    },
+    {
+      "from": "s10",
+      "event": "DeleteRetainedC1",
+      "to": "s10"
+    },
+    {
+      "from": "s10",
+      "event": "DeleteRetainedC2",
+      "to": "s4"
+    },
+    {
+      "from": "s10",
+      "event": "SubscribeC2",
+      "to": "s10"
+    },
+    {
+      "from": "s10",
+      "event": "UnSubScribeC2",
+      "to": "s7"
+    },
+    {
+      "from": "s10",
+      "event": "DisconnectTCPC1",
+      "to": "s10"
+    },
+    {
+      "from": "s10",
+      "event": "DisconnectC1",
+      "to": "s10"
+    },
+    {
+      "from": "s11",
+      "event": "ConnectC2",
+      "to": "s14"
+    },
+    {
+      "from": "s11",
+      "event": "ConnectC1WithWill",
+      "to": "s7"
+    },
+    {
+      "from": "s11",
+      "event": "ConnectC1WithWillRetain",
+      "to": "s7"
+    },
+    {
+      "from": "s11",
+      "event": "DeleteRetainedC1",
+      "to": "s2"
+    },
+    {
+      "from": "s11",
+      "event": "DeleteRetainedC2",
+      "to": "s2"
+    },
+    {
+      "from": "s11",
+      "event": "SubscribeC2",
+      "to": "s13"
+    },
+    {
+      "from": "s11",
+      "event": "UnSubScribeC2",
+      "to": "s11"
+    },
+    {
+      "from": "s11",
+      "event": "DisconnectTCPC1",
+      "to": "s7"
+    },
+    {
+      "from": "s11",
+      "event": "DisconnectC1",
+      "to": "s7"
+    },
+    {
+      "from": "s12",
+      "event": "ConnectC2",
+      "to": "s7"
+    },
+    {
+      "from": "s12",
+      "event": "ConnectC1WithWill",
+      "to": "s14"
+    },
+    {
+      "from": "s12",
+      "event": "ConnectC1WithWillRetain",
+      "to": "s16"
+    },
+    {
+      "from": "s12",
+      "event": "DeleteRetainedC1",
+      "to": "s12"
+    },
+    {
+      "from": "s12",
+      "event": "DeleteRetainedC2",
+      "to": "s12"
+    },
+    {
+      "from": "s12",
+      "event": "SubscribeC2",
+      "to": "s12"
+    },
+    {
+      "from": "s12",
+      "event": "UnSubScribeC2",
+      "to": "s12"
+    },
+    {
+      "from": "s12",
+      "event": "DisconnectTCPC1",
+      "to": "s12"
+    },
+    {
+      "from": "s12",
+      "event": "DisconnectC1",
+      "to": "s12"
+    },
+    {
+      "from": "s13",
+      "event": "ConnectC2",
+      "to": "s14"
+    },
+    {
+      "from": "s13",
+      "event": "ConnectC1WithWill",
+      "to": "s10"
+    },
+    {
+      "from": "s13",
+      "event": "ConnectC1WithWillRetain",
+      "to": "s10"
+    },
+    {
+      "from": "s13",
+      "event": "DeleteRetainedC1",
+      "to": "s5"
+    },
+    {
+      "from": "s13",
+      "event": "DeleteRetainedC2",
+      "to": "s5"
+    },
+    {
+      "from": "s13",
+      "event": "SubscribeC2",
+      "to": "s13"
+    },
+    {
+      "from": "s13",
+      "event": "UnSubScribeC2",
+      "to": "s11"
+    },
+    {
+      "from": "s13",
+      "event": "DisconnectTCPC1",
+      "to": "s10"
+    },
+    {
+      "from": "s13",
+      "event": "DisconnectC1",
+      "to": "s10"
+    },
+    {
+      "from": "s14",
+      "event": "ConnectC2",
+      "to": "s11"
+    },
+    {
+      "from": "s14",
+      "event": "ConnectC1WithWill",
+      "to": "s12"
+    },
+    {
+      "from": "s14",
+      "event": "ConnectC1WithWillRetain",
+      "to": "s12"
+    },
+    {
+      "from": "s14",
+      "event": "DeleteRetainedC1",
+      "to": "s3"
+    },
+    {
+      "from": "s14",
+      "event": "DeleteRetainedC2",
+      "to": "s14"
+    },
+    {
+      "from": "s14",
+      "event": "SubscribeC2",
+      "to": "s14"
+    },
+    {
+      "from": "s14",
+      "event": "UnSubScribeC2",
+      "to": "s14"
+    },
+    {
+      "from": "s14",
+      "event": "DisconnectTCPC1",
+      "to": "s12"
+    },
+    {
+      "from": "s14",
+      "event": "DisconnectC1",
+      "to": "s12"
+    },
+    {
+      "from": "s15",
+      "event": "ConnectC2",
+      "to": "s16"
+    },
+    {
+      "from": "s15",
+      "event": "ConnectC1WithWill",
+      "to": "s10"
+    },
+    {
+      "from": "s15",
+      "event": "ConnectC1WithWillRetain",
+      "to": "s10"
+    },
+    {
+      "from": "s15",
+      "event": "DeleteRetainedC1",
+      "to": "s9"
+    },
+    {
+      "from": "s15",
+      "event": "DeleteRetainedC2",
+      "to": "s9"
+    },
+    {
+      "from": "s15",
+      "event": "SubscribeC2",
+      "to": "s15"
+    },
+    {
+      "from": "s15",
+      "event": "UnSubScribeC2",
+      "to": "s17"
+    },
+    {
+      "from": "s15",
+      "event": "DisconnectTCPC1",
+      "to": "s10"
+    },
+    {
+      "from": "s15",
+      "event": "DisconnectC1",
+      "to": "s10"
+    },
+    {
+      "from": "s16",
+      "event": "ConnectC2",
+      "to": "s17"
+    },
+    {
+      "from": "s16",
+      "event": "ConnectC1WithWill",
+      "to": "s12"
+    },
+    {
+      "from": "s16",
+      "event": "ConnectC1WithWillRetain",
+      "to": "s12"
+    },
+    {
+      "from": "s16",
+      "event": "DeleteRetainedC1",
+      "to": "s8"
+    },
+    {
+      "from": "s16",
+      "event": "DeleteRetainedC2",
+      "to": "s16"
+    },
+    {
+      "from": "s16",
+      "event": "SubscribeC2",
+      "to": "s16"
+    },
+    {
+      "from": "s16",
+      "event": "UnSubScribeC2",
+      "to": "s16"
+    },
+    {
+      "from": "s16",
+      "event": "DisconnectTCPC1",
+      "to": "s12"
+    },
+    {
+      "from": "s16",
+      "event": "DisconnectC1",
+      "to": "s12"
+    },
+    {
+      "from": "s17",
+      "event": "ConnectC2",
+      "to": "s16"
+    },
+    {
+      "from": "s17",
+      "event": "ConnectC1WithWill",
+      "to": "s7"
+    },
+    {
+      "from": "s17",
+      "event": "ConnectC1WithWillRetain",
+      "to": "s7"
+    },
+    {
+      "from": "s17",
+      "event": "DeleteRetainedC1",
+      "to": "s6"
+    },
+    {
+      "from": "s17",
+      "event": "DeleteRetainedC2",
+      "to": "s6"
+    },
+    {
+      "from": "s17",
+      "event": "SubscribeC2",
+      "to": "s15"
+    },
+    {
+      "from": "s17",
+      "event": "UnSubScribeC2",
+      "to": "s17"
+    },
+    {
+      "from": "s17",
+      "event": "DisconnectTCPC1",
+      "to": "s7"
+    },
+    {
+      "from": "s17",
+      "event": "DisconnectC1",
+      "to": "s7"
+    }
+  ]
+}

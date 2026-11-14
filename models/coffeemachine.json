@@ -1,0 +1,134 @@
+{
+  "name": "coffeemachine",
+  "initial": "s0",
+  "states": [
+    "s0",
+    "s1",
+    "s2",
+    "s3",
+    "s4",
+    "s5"
+  ],
+  "transitions": [
+    {
+      "from": "s0",
+      "event": "WATER",
+      "to": "s4"
+    },
+    {
+      "from": "s0",
+      "event": "POD",
+      "to": "s2"
+    },
+    {
+      "from": "s0",
+      "event": "BUTTON",
+      "to": "s1"
+    },
+    {
+      "from": "s0",
+      "event": "CLEAN",
+      "to": "s0"
+    },
+    {
+      "from": "s1",
+      "event": "WATER",
+      "to": "s1"
+    },
+    {
+      "from": "s1",
+      "event": "POD",
+      "to": "s1"
+    },
+    {
+      "from": "s1",
+      "event": "BUTTON",
+      "to": "s1"
+    },
+    {
+      "from": "s1",
+      "event": "CLEAN",
+      "to": "s1"
+    },
+    {
+      "from": "s2",
+      "event": "WATER",
+      "to": "s3"
+    },
+    {
+      "from": "s2",
+      "event": "POD",
+      "to": "s2"
+    },
+    {
+      "from": "s2",
+      "event": "BUTTON",
+      "to": "s1"
+    },
+    {
+      "from": "s2",
+      "event": "CLEAN",
+      "to": "s0"
+    },
+    {
+      "from": "s3",
+      "event": "WATER",
+      "to": "s3"
+    },
+    {
+      "from": "s3",
+      "event": "POD",
+      "to": "s3"
+    },
+    {
+      "from": "s3",
+      "event": "BUTTON",
+      "to": "s5"
+    },
+    {
+      "from": "s3",
+      "event": "CLEAN",
+      "to": "s0"
+    },
+    {
+      "from": "s4",
+      "event": "WATER",
+      "to": "s4"
+    },
+    {
+      "from": "s4",
+      "event": "POD",
+      "to": "s3"
+    },
+    {
+      "from": "s4",
+      "event": "BUTTON",
+      "to": "s1"
+    },
+    {
+      "from": "s4",
+      "event": "CLEAN",
+      "to": "s0"
+    },
+    {
+      "from": "s5",
+      "event": "WATER",
+      "to": "s1"
+    },
+    {
+      "from": "s5",
+      "event": "POD",
+      "to": "s1"
+    },
+    {
+      "from": "s5",
+      "event": "BUTTON",
+      "to": "s1"
+    },
+    {
+      "from": "s5",
+      "event": "CLEAN",
+      "to": "s0"
+    }
+  ]
+}
